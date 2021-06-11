@@ -1,0 +1,15 @@
+[ 
+    {
+        "model": "amaapi.studentuser",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "parent_first_name": "amanda",
+            "parent_last_name": "lolo",
+            "phone_number": "555-555-5555",
+            "birth_date": "6/11/2003",
+            "admin": 1
+        }
+    }
+]
+

@@ -1,0 +1,11 @@
+[
+    {
+        "model": "amaapi.admin",
+        "pk": 1,
+        "fields": {
+            "first_name": "Andrea",
+            "last_name": "Nichole",
+            "studio_name": "Allegro Music Academy"
+        }
+    }
+]

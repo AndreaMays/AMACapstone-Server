@@ -1,0 +1,16 @@
+[
+    {
+        "model": "amaapi.lessonnotes",
+        "pk": 1,
+        "fields": {
+            "student_user": 1,
+            "date": "2020-08-28",
+            "scale_notes": "Do C,G, and D scale",
+            "memory_notes": "Play from memory",
+            "song1_notes": "Practice",
+            "song2_notes": "practice",
+            "admin": 1
+        }
+    }
+]
+
