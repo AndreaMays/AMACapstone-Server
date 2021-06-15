@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "capstone",
+            "database": "db.sqlite3"
+        }
+    ],
+    "python.pythonPath": "/home/dreanichole/.local/share/virtualenvs/ama-fux3UyyX/bin/python"
+}

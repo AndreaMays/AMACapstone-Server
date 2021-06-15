@@ -1,4 +1,4 @@
-from amaapi.models.studentuser import StudentUser
+from amaapi.models.studentusers import StudentUser
 import json
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
