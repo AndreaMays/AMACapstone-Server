@@ -47,11 +47,50 @@ class LessonNoteView(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+    def retrieve(self, request, pk=None):
+        """Handle GET request for single lesson note
+       Returns: Response -- JSON serialized instance 
+        """
+        try:
+            lessonnote = LessonNotes.objects.get(pk=pk)
+            serializer = LessonNotesSerializer(lessonnote, context={'request': request})
+            return Response(serializer.data)
+        except Exception:
+            return HttpResponseServerError(ex)
+
+    def destroy(self, request, pk=None):
+        """This is the DELETE request for a single note
+        Returns: Response -- 200, 404, or 500 status code
+        """
+        try:
+            lessonnote = LessonNotes.objects.get(pk=pk)
+            lessonnote.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        
+        except LessonNotes.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def list(self, request):
+#    line 80 in paranthesis is authenticating the admin and then setting that to "admin" inside the paranthesis
+# then everything on the right side is being set to the variable name "adminuser"
+        adminuser = StudentUser.objects.all(admin=request.auth.user)
+        studentadminnotes = LessonNotes.objects.all(Admin=adminuser)
+# line 81 (above) inside the paraenthsis, is filtering the LessonNotes object by the dot notation on line 14
+# then(inside the paraenthis) i am setting the authenticated user variable name from 14 equal to "student_user" which is one of the key
+        serializer = StudentUserSeralizer(
+            studentadminnotes, many=True, context={'request': request})
+        return Response (serializer.data)
+
+
 
 class UserSerializer:
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'id']
 
 class StudentUserSeralizer(serializers.ModelSerializer):
     user = UserSerializer
