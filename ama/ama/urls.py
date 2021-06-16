@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 from amaapi.views import register_user, login_user
-from amaapi.views import LessonNoteView
+from amaapi.views import LessonNoteView, StudentUserNotesView, StudentUserListView
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
 
 router.register(r'lessonnotes', LessonNoteView, 'lessonnote')
+router.register(r'studentNotes', StudentUserNotesView, 'studentnote')
+router.register(r'studentList', StudentUserListView, 'studentlist')
 
 urlpatterns = [
     path('', include(router.urls)),
