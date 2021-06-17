@@ -1,5 +1,5 @@
 """View module for handling requests about games"""
-from amaapi.models import StudentUser, LessonNotes
+from amaapi.models import StudentUser, LessonNotes, Admin, studentusers
 from django.core.exceptions import ValidationError
 from rest_framework import fields, status
 from django.http import HttpResponseServerError
@@ -39,6 +39,7 @@ class LessonNoteView(ViewSet):
         # `gameTypeId` in the body of the request.
         lessonuser = StudentUser.objects.get(pk=request.data["student_userId"])
         notes.student_user = lessonuser
+        notes.admin = adminuser
 
         try:
             notes.save()
@@ -77,32 +78,32 @@ class LessonNoteView(ViewSet):
     def list(self, request):
 #    line 80 in paranthesis is authenticating the admin and then setting that to "admin" inside the paranthesis
 # then everything on the right side is being set to the variable name "adminuser"
-        adminuser = StudentUser.objects.all(admin=request.auth.user)
-        studentadminnotes = LessonNotes.objects.all(Admin=adminuser)
+        adminuser = Admin.objects.get(user=request.auth.user)
+        studentadminnotes = LessonNotes.objects.filter(admin=adminuser)
 # line 81 (above) inside the paraenthsis, is filtering the LessonNotes object by the dot notation on line 14
 # then(inside the paraenthis) i am setting the authenticated user variable name from 14 equal to "student_user" which is one of the key
-        serializer = StudentUserSeralizer(
+        serializer = LessonNotesSerializer(
             studentadminnotes, many=True, context={'request': request})
         return Response (serializer.data)
 
 
 
-class UserSerializer:
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'id']
 
 class StudentUserSeralizer(serializers.ModelSerializer):
-    user = UserSerializer
+    user = UserSerializer()
 
     class Meta:
         model = StudentUser
-        fields = ['User']
+        fields = ['user']
 
 class LessonNotesSerializer(serializers.ModelSerializer):
     """JSON serializer for event organizer's related Django user"""
-    organizer = StudentUserSeralizer(many=False)
+    student_user = StudentUserSeralizer(many=False)
     
     class Meta:
         model = LessonNotes
-        fields = ['date', 'scale_notes', 'memory_notes', "song1_notes", "song2_notes"]
+        fields = ['date', 'scale_notes', 'memory_notes', "song1_notes", "song2_notes", "student_user"]

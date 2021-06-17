@@ -22,7 +22,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
 
-router.register(r'lessonnotes', LessonNoteView, 'lessonnote')
+router.register(r'notes', LessonNoteView, 'note')
 router.register(r'studentNotes', StudentUserNotesView, 'studentnote')
 router.register(r'studentList', StudentUserListView, 'studentlist')
 
