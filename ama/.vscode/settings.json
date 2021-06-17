@@ -7,5 +7,6 @@
             "name": "fullstack cap",
             "database": "db.sqlite3"
         }
-    ]
+    ],
+    "python.pythonPath": "/home/dreanichole/.local/share/virtualenvs/ama-fux3UyyX/bin/python"
 }

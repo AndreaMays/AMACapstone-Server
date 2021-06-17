@@ -5,7 +5,8 @@
         "fields": {
             "first_name": "Andrea",
             "last_name": "Nichole",
-            "studio_name": "Allegro Music Academy"
+            "studio_name": "Allegro Music Academy",
+            "user_id": 2
         }
     }
 ]
