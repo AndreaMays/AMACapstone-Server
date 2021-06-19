@@ -1,4 +1,5 @@
 """View module for handling requests about games"""
+from typing import ContextManager
 from amaapi.models import StudentUser, LessonNotes, Admin, studentusers
 from django.core.exceptions import ValidationError
 from rest_framework import fields, status
@@ -80,11 +81,16 @@ class LessonNoteView(ViewSet):
 # then everything on the right side is being set to the variable name "adminuser"
         adminuser = Admin.objects.get(user=request.auth.user)
         studentadminnotes = LessonNotes.objects.filter(admin=adminuser)
+        user = User.objects.get(user=request.auth.user)
 # line 81 (above) inside the paraenthsis, is filtering the LessonNotes object by the dot notation on line 14
 # then(inside the paraenthis) i am setting the authenticated user variable name from 14 equal to "student_user" which is one of the key
         serializer = LessonNotesSerializer(
             studentadminnotes, many=True, context={'request': request})
         return Response (serializer.data)
+
+        # serializer = UserSerializer(
+        #     user, many = True, context={'request': request})
+        # return Response (serializer.data)
 
 
 
