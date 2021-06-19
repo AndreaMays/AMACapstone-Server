@@ -26,5 +26,5 @@ class LessonNotesSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = LessonNotes
-        fields = ['date', 'scale_notes', 'memory_notes', "song1_notes", "song2_notes"]
+        fields = ['date', 'scale_notes', 'memory_notes', "song1_notes", "song2_notes", "id", "admin"]
     
