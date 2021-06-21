@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 from amaapi.views import register_user, login_user
-from amaapi.views import LessonNoteView, StudentUserNotesView, StudentUserListView
+from amaapi.views import LessonNoteView, StudentUserNotesView, StudentUserListView, StudentCompetitionList
 
 
 
@@ -31,6 +31,7 @@ router.register(r'notes', LessonNoteView, 'note')
 router.register(r'studentnotes', StudentUserNotesView, 'studentnote')
 router.register(r'studentlist', StudentUserListView, 'studentlist')
 router.register(r'competitions', CompetitionViews, 'competition')
+router.register(r'competitionlists', StudentCompetitionList, 'competitionlist')
 
 urlpatterns = [
     path('', include(router.urls)),

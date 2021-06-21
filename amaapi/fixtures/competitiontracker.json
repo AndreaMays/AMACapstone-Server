@@ -10,6 +10,18 @@
             "admin": 1,
             "award": 1
         }
+    },
+    {
+        "model": "amaapi.competitions",
+        "pk": 1,
+        "fields": {
+            "student_user": 2,
+            "date": "2020-11-28",
+            "name_of_comp": "Guild",
+            "score": "Pass",
+            "admin": 1,
+            "award": 1
+        }
     }
 ]
 
