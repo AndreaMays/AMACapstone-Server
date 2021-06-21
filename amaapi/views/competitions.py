@@ -1,7 +1,7 @@
 """View module for handling requests about games"""
 from amaapi.models.awards import Awards
 from typing import ContextManager
-from amaapi.models import StudentUser, LessonNotes, Admin, studentusers, competitontracker
+from amaapi.models import StudentUser, LessonNotes, Admin, studentusers, Competitions
 from django.core.exceptions import ValidationError
 from rest_framework import fields, status
 from django.http import HttpResponseServerError
@@ -51,7 +51,7 @@ class CompetitionViews(ViewSet):
        Returns: Response -- JSON serialized instance 
         """
         try:
-            competitons = competitontracker.objects.get(pk=pk)
+            competitons = Competitions.objects.get(pk=pk)
             serializer = CompetitionSerializer(competitons, context={'request': request})
             return Response(serializer.data)
         except Exception:
@@ -62,7 +62,7 @@ class CompetitionViews(ViewSet):
         Returns: Response -- 200, 404, or 500 status code
         """
         try:
-            competitions = competitontracker.objects.get(pk=pk)
+            competitions = Competitions.objects.get(pk=pk)
             competitions.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
@@ -77,8 +77,8 @@ class CompetitionViews(ViewSet):
 #    line 80 in paranthesis is authenticating the admin and then setting that to "admin" inside the paranthesis
 # then everything on the right side is being set to the variable name "adminuser"
         adminuser = Admin.objects.get(user=request.auth.user)
-        competitions = competitontracker.objects.filter(admin=adminuser)
-        user = User.objects.get(user=request.auth.user)
+        competitions = Competitions.objects.filter(admin=adminuser)
+        # user = User.objects.get(user=request.auth.user)
 # line 81 (above) inside the paraenthsis, is filtering the LessonNotes object by the dot notation on line 14
 # then(inside the paraenthis) i am setting the authenticated user variable name from 14 equal to "student_user" which is one of the key
         serializer = CompetitionSerializer(
@@ -106,7 +106,7 @@ class CompetitionSerializer(serializers.ModelSerializer):
     student_user = StudentUserSeralizer(many=False)
     
     class Meta:
-        model = competitontracker
+        model = Competitions
         fields = ['date', 'name_of_comp', 'score', "award", "student_user"]
 
 class AwardSeralizer(serializers.ModelSerializer):

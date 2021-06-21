@@ -81,7 +81,7 @@ class LessonNoteView(ViewSet):
 # then everything on the right side is being set to the variable name "adminuser"
         adminuser = Admin.objects.get(user=request.auth.user)
         studentadminnotes = LessonNotes.objects.filter(admin=adminuser)
-        user = User.objects.get(user=request.auth.user)
+        # user = User.objects.get(user=request.auth.user)
 # line 81 (above) inside the paraenthsis, is filtering the LessonNotes object by the dot notation on line 14
 # then(inside the paraenthis) i am setting the authenticated user variable name from 14 equal to "student_user" which is one of the key
         serializer = LessonNotesSerializer(

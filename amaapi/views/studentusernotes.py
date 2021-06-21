@@ -19,12 +19,23 @@ class StudentUserNotesView(ViewSet):
             notes, many=True, context={'request': request})
         return Response (serializer.data)
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'id']
+
+class StudentUserSeralizer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = StudentUser
+        fields = ['user']
 
 class LessonNotesSerializer(serializers.ModelSerializer):
     """JSON serializer for event organizer's related Django user"""
-    # organizer = StudentUserSeralizer(many=False)
+    student_user = StudentUserSeralizer(many=False)
     
     class Meta:
         model = LessonNotes
-        fields = ['date', 'scale_notes', 'memory_notes', "song1_notes", "song2_notes", "id", "admin"]
+        fields = ['date', 'scale_notes', 'memory_notes', "song1_notes", "song2_notes", "id", "admin", "student_user"]
     
