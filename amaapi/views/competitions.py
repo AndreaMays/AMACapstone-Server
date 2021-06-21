@@ -1,4 +1,4 @@
-"""View module for handling requests about games"""
+"""View module for handling requests about competitions"""
 from amaapi.models.awards import Awards
 from typing import ContextManager
 from amaapi.models import StudentUser, LessonNotes, Admin, studentusers, Competitions
@@ -27,7 +27,7 @@ class CompetitionViews(ViewSet):
             # and set its properties from what was sent in the
             # body of the request from the client.
             
-        competitions = competitontracker()
+        competitions = Competitions()
         competitions.date = request.data["date"]
         competitions.name_of_comp = request.data["name_of_comp"]
         competitions.score = request.data["score"]
