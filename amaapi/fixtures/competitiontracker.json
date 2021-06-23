@@ -15,7 +15,7 @@
         "model": "amaapi.competitions",
         "pk": 1,
         "fields": {
-            "student_user": 2,
+            "student_user": 1,
             "date": "2020-11-28",
             "name_of_comp": "Guild",
             "score": "Pass",
