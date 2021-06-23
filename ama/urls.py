@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from amaapi.views.awards import AwardViews
 from amaapi.views.competitions import CompetitionViews
 from rest_framework import routers
 from django.conf.urls.static import static
@@ -21,7 +22,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 from amaapi.views import register_user, login_user
-from amaapi.views import LessonNoteView, StudentUserNotesView, StudentUserListView, StudentCompetitionList
+from amaapi.views import LessonNoteView, StudentUserNotesView, StudentUserListView, StudentCompetitionList, AwardsListViews
 
 
 
@@ -32,6 +33,8 @@ router.register(r'studentnotes', StudentUserNotesView, 'studentnote')
 router.register(r'studentlist', StudentUserListView, 'studentlist')
 router.register(r'competitions', CompetitionViews, 'competition')
 router.register(r'competitionlists', StudentCompetitionList, 'competitionlist')
+router.register(r'awards', AwardViews, 'award')
+router.register(r'awardslist', AwardsListViews, 'awardlist')
 
 urlpatterns = [
     path('', include(router.urls)),
