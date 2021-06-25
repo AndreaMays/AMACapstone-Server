@@ -14,7 +14,7 @@
         "model": "amaapi.awards",
         "pk": 2,
         "fields": {
-            "student_user": 2,
+            "student_user": 1,
             "date": "2021-04-28",
             "name_of_comp": "federation festival",
             "type_of_award": "15pt Gold Cup",
